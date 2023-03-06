@@ -1,6 +1,6 @@
 # JavaATM
-ATM created with JAVA and Swing
-Object-oriented programming 
+ATM created with JAVA and Swing.
+Object-oriented programming.
 
 Functions:
 Create account, list accounts, update account and delete account;
