@@ -1,15 +1,15 @@
 package atmProjectPack;
 import javax.swing.*;
 
-
 public class Machine {
- 	private static Account[] accountsList = new Account[3];
+ 	private static Account[] accountsList = new Account[20];
+ 	
  	private static int iterator;
 
  	public static void ATM() {
  		try {
  			String aux = JOptionPane.showInputDialog(
- 					"O que deseja fazer?\n\n1)Cadastrar cliente \n2)Listar clientes \n3)Alterar os dados dos clientes \n4)Descritivo \n5)Extrato \n6)Depositar \n7)Sacar \n8)Tranferir \n9)Sair");
+ 					"O que deseja fazer?\n\n1)Cadastrar Conta \n2)Listar Contas \n3)Atualizar Conta \n4)Deletar Conta \n5)Descritivo \n6)Extrato \n7)Depositar \n8)Sacar \n9)Tranferir \n0)Sair");
 
  			int escolha = Integer.parseInt(aux);
 
@@ -34,21 +34,24 @@ public class Machine {
  							update();
  							break;
  						case 4:
- 							descritivo();
+ 							delete();
  							break;
  						case 5:
- 							extrato();
+ 							descritivo();
  							break;
  						case 6:
- 							depositar();
+ 							extrato();
  							break;
  						case 7:
- 							sacar();
+ 							depositar();
  							break;
  						case 8:
- 							tranferir();
+ 							sacar();
  							break;
  						case 9:
+ 							tranferir();
+ 							break;
+ 						case 0:
  							exit();
  							break;
  						default:
@@ -65,7 +68,7 @@ public class Machine {
  		}
  	}
 
- 	private static void create() {
+	private static void create() {
  		accountsList[iterator] = new Account();
 
  		try {
@@ -106,7 +109,8 @@ public class Machine {
 
  			JOptionPane.showMessageDialog(null, "Número da Conta: " + accountsList[i].getAccountNumber() + "\nTitular: "
  					+ accountsList[i].getName() + "\nSaldo:  R$ " + accountsList[i].getBalance());
-
+ 			
+ 			
  		}
 
  		ATM();
@@ -147,6 +151,22 @@ public class Machine {
 
  		ATM();
  	}
+ 	
+ 	private static void delete() {
+		String n = JOptionPane.showInputDialog("Insira o número da conta que deseja excluir:");
+		int nmr = Integer.parseInt(n);
+		
+		for(int i = 0; i < accountsList.length; i++) {
+			if(nmr == accountsList[i].getAccountNumber()) {
+				accountsList[i].setAccountNumber(0);
+				accountsList[i].setName(null);
+				accountsList[i].setBalance(null);				
+			}
+		}
+		
+		ATM();
+		
+	}
 
  	private static void descritivo() {
 
