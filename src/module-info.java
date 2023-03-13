@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author Bispo
- *
- */
-module atmProject {
-}

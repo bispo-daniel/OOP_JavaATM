@@ -1,5 +1,3 @@
-package atmProjectPack;
-
 public class Account {
 
 	private int AccountNumber;

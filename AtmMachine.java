@@ -1,7 +1,6 @@
-package atmProjectPack;
 import javax.swing.*;
 
-public class Machine {
+public class AtmMachine {
  	private static Account[] accountsList = new Account[20];
  	
  	private static int iterator;
