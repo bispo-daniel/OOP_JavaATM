@@ -1,8 +1,17 @@
+package OOP_javaATM;
+
 public class Account {
 
 	private int AccountNumber;
 	private String Name;
 	private Float Balance;
+
+	//Constructor
+	public Account(int AccountNumber, String Name, Float Balance){
+		this.AccountNumber = AccountNumber;
+		this.Name = Name;
+		this.Balance = Balance;
+	}
 
 	public int getAccountNumber() {
 		return AccountNumber;
@@ -26,6 +35,10 @@ public class Account {
 
 	public void setBalance(Float balance) {
 		Balance = balance;
+	}
+
+	public String print(){
+		return	"Conta: " + AccountNumber + " Titular: " + Name + " Saldo:  R$ " + Balance + "\n";
 	}
 
 }

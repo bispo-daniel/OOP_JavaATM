@@ -1,43 +1,39 @@
+package OOP_javaATM;
+
 import javax.swing.*;
 import java.util.ArrayList;
 
 public class AtmMachine {
 	static ArrayList<Account> accountsList = new ArrayList<Account>();
- 	private static int iterator;
 
 	//Function to create a new account
 	private static void create() {
-
-		String aux01 = JOptionPane.showInputDialog("Digite o número da conta: " + "[" + (iterator + 1) + "]");
+		String aux01 = JOptionPane.showInputDialog("Digite o número da conta: ");
 		int accountNumber = Integer.parseInt(aux01);
 
- 		String aux02 = JOptionPane.showInputDialog("Digite o nome do titular: ");
+ 		String nome = JOptionPane.showInputDialog("Digite o nome do titular: ");
 
 		String aux03 = JOptionPane.showInputDialog("Digite o saldo inicial: ");
 		Float accountBalance = Float.parseFloat(aux03);
 
-		accountsList.add(new Account());
-		
-		accountsList.get(iterator).setAccountNumber(accountNumber);
-		accountsList.get(iterator).setName(aux02);
-		accountsList.get(iterator).setBalance(accountBalance);
+		Account acc = new Account(accountNumber, nome, accountBalance);
+		accountsList.add(acc);
 		
 		JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
- 		iterator++;
  		ATM();
  	}
 
-	static String result = "";
+	static String listAllAccounts = "";
 
 	//Function to display all accounts 
  	private static void read() {
-		result = "";
+		listAllAccounts = "";
 
  		for (Account acc : accountsList) {
-			result += "Conta: " + acc.getAccountNumber() + " Titular: " + acc.getName() + " Saldo:  R$ " + acc.getBalance() + "\n";
+			listAllAccounts += acc.print();
 		}
 		
-		JOptionPane.showMessageDialog(null, result);
+		JOptionPane.showMessageDialog(null, listAllAccounts);
  		ATM();
  	}
 
@@ -49,16 +45,16 @@ public class AtmMachine {
 		for (Account acc : accountsList) {
 			if (acc.getAccountNumber() == accountNumber) {
 				String aux02 = JOptionPane
-						.showInputDialog("\nO que deseja alterar? \n1) Nome \n2) Número da Conta \n3) Saldo");
+						.showInputDialog("\nO que deseja alterar? \n1) Número da Conta \n2) Nome \n3) Saldo");
 				int op = Integer.parseInt(aux02);
 
 				switch (op) {
 					case 1:
-						acc.setName(JOptionPane.showInputDialog("Digite o novo nome: "));
+						acc.setAccountNumber(Integer.parseInt(JOptionPane.showInputDialog("Digite o novo número: ")));
 						JOptionPane.showMessageDialog(null, "Cliente alterado com Sucesso!");
 						break;
 					case 2:
-						acc.setAccountNumber(Integer.parseInt(JOptionPane.showInputDialog("Digite o novo número: ")));
+						acc.setName(JOptionPane.showInputDialog("Digite o novo nome: "));
 						JOptionPane.showMessageDialog(null, "Cliente alterado com Sucesso!");
 						break;
 					case 3:
@@ -91,7 +87,6 @@ public class AtmMachine {
 			}
 		}
 		
-		iterator--;
 		ATM();
 	}
 
@@ -244,66 +239,56 @@ public class AtmMachine {
  	}
 
 	//Function to display the others functions and get the user's input and manage it
-	 public static void ATM() {
-		try {
-			String aux = JOptionPane.showInputDialog(
-					"O que deseja fazer?\n\n1)Cadastrar Conta \n2)Listar Contas \n3)Atualizar Conta \n4)Deletar Conta \n5)Descritivo \n6)Extrato \n7)Depositar \n8)Sacar \n9)Tranferir \n0)Sair");
+	public static void ATM() {
+		String aux = JOptionPane.showInputDialog(
+				"Olá, Seja Bem-Vindo!\n\nO que deseja fazer?\n\n1)Cadastrar Conta \n2)Listar Contas \n3)Atualizar Conta \n4)Deletar Conta \n5)Descritivo \n6)Extrato \n7)Depositar \n8)Sacar \n9)Tranferir \n0)Sair");
 
-			int escolha = Integer.parseInt(aux);
+		int escolha = Integer.parseInt(aux);
 
-			try {
-				if (escolha < 0 || escolha > 9) {
-					JOptionPane.showMessageDialog(null, "Por favor, digite um valor entre 1 e 9");
-					ATM();
-				} else {
-					switch (escolha) {
-						case 1:
-						   create();
-							break;
-						case 2:
-							read();
-							break;
-						case 3:
-							update();
-							break;
-						case 4:
-							delete();
-							break;
-						case 5:
-							descritivo();
-							break;
-						case 6:
-							extrato();
-							break;
-						case 7:
-							depositar();
-							break;
-						case 8:
-							sacar();
-							break;
-						case 9:
-							tranferir();
-							break;
-						case 0:
-							System.exit(0);
-							break;
-						default:
-							JOptionPane.showMessageDialog(null, "Digite um número entre 0 e 9...");
-					}
-				}
-			} catch (NullPointerException e) {
-				ATM();
-			}
-		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null,
-					"Você provavelmente digitou uma letra onde um número era esperado. Tente novamente...");
-			ATM();
+		switch (escolha) {
+			case 1:
+				create();
+				break;
+			case 2:
+				read();
+				break;
+			case 3:
+				update();
+				break;
+			case 4:
+				delete();
+				break;
+			case 5:
+				descritivo();
+				break;
+			case 6:
+				extrato();
+				break;
+			case 7:
+				depositar();
+				break;
+			case 8:
+				sacar();
+				break;
+			case 9:
+				tranferir();
+				break;
+			case 0:
+				System.exit(0);
+				break;
+			default:
+				JOptionPane.showMessageDialog(null, "Digite um número entre 0 e 9...");
 		}
 	}
+	
 
 	//Main function that calls the ATM function to display and call the options
  	public static void main(String[] args) {
- 		JOptionPane.showMessageDialog(null, "Olá, Seja Bem-Vindo!");
- 		ATM();
- 	}
+		try{
+			ATM();
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Você provavelmente digitou uma letra onde um número era esperado. Tente novamente...");
+			main(args);
+		}
+	}
  }
