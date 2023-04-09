@@ -1,7 +1,4 @@
-package OOP_javaATM;
-
 public class Account {
-
 	private int AccountNumber;
 	private String Name;
 	private Float Balance;
@@ -40,5 +37,4 @@ public class Account {
 	public String print(){
 		return	"Conta: " + AccountNumber + " Titular: " + Name + " Saldo:  R$ " + Balance + "\n";
 	}
-
 }

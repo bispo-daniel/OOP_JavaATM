@@ -1,5 +1,3 @@
-package OOP_javaATM;
-
 import javax.swing.*;
 import java.util.ArrayList;
 
