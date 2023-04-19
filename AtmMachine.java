@@ -68,7 +68,7 @@ public class AtmMachine {
 
  		ATM();
  	}
- 	
+
 	//Function to delete an account
  	private static void delete() {
 		String auxiliar = JOptionPane.showInputDialog("Type the account number that you want to delete");
@@ -279,7 +279,6 @@ public class AtmMachine {
 				ATM();
 		}
 	}
-	
 
 	//Main function that calls the ATM function to display and call the options
  	public static void main(String[] args) {
