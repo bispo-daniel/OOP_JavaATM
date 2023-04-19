@@ -35,6 +35,6 @@ public class Account {
 	}
 
 	public String print(){
-		return	"Conta: " + AccountNumber + " Titular: " + Name + " Saldo:  R$ " + Balance + "\n";
+		return	"Account number: " + AccountNumber + " Name: " + Name + " Balance: $ " + Balance + "\n";
 	}
 }

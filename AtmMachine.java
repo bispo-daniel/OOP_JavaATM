@@ -6,18 +6,18 @@ public class AtmMachine {
 
 	//Function to create a new account
 	private static void create() {
-		String aux01 = JOptionPane.showInputDialog("Digite o número da conta: ");
-		int accountNumber = Integer.parseInt(aux01);
+		String accountNumberString = JOptionPane.showInputDialog("Type the account number");
+		int accountNumber = Integer.parseInt(accountNumberString);
 
- 		String nome = JOptionPane.showInputDialog("Digite o nome do titular: ");
+ 		String name = JOptionPane.showInputDialog("Type your name");
 
-		String aux03 = JOptionPane.showInputDialog("Digite o saldo inicial: ");
-		Float accountBalance = Float.parseFloat(aux03);
+		String accountBalanceString = JOptionPane.showInputDialog("Type the initial balance");
+		Float accountBalance = Float.parseFloat(accountBalanceString);
 
-		Account acc = new Account(accountNumber, nome, accountBalance);
+		Account acc = new Account(accountNumber, name, accountBalance);
 		accountsList.add(acc);
 		
-		JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
+		JOptionPane.showMessageDialog(null, "Account successfully created!");
  		ATM();
  	}
 
@@ -37,30 +37,30 @@ public class AtmMachine {
 
 	//Function to update an account 
  	private static void update() {
-		String aux01 = JOptionPane.showInputDialog("Qual conta você deseja alterar?");
+		String aux01 = JOptionPane.showInputDialog("Which account do you want to update?");
 		int accountNumber = Integer.parseInt(aux01);
 
 		for (Account acc : accountsList) {
 			if (acc.getAccountNumber() == accountNumber) {
 				String aux02 = JOptionPane
-						.showInputDialog("\nO que deseja alterar? \n1) Número da Conta \n2) Nome \n3) Saldo");
+						.showInputDialog("\nWhat do you want to update? \n1) Account number \n2) Name \n3) Balance");
 				int op = Integer.parseInt(aux02);
 
 				switch (op) {
 					case 1:
-						acc.setAccountNumber(Integer.parseInt(JOptionPane.showInputDialog("Digite o novo número: ")));
-						JOptionPane.showMessageDialog(null, "Cliente alterado com Sucesso!");
+						acc.setAccountNumber(Integer.parseInt(JOptionPane.showInputDialog("Type the new account number")));
+						JOptionPane.showMessageDialog(null, "Account successfully updated!");
 						break;
 					case 2:
-						acc.setName(JOptionPane.showInputDialog("Digite o novo nome: "));
-						JOptionPane.showMessageDialog(null, "Cliente alterado com Sucesso!");
+						acc.setName(JOptionPane.showInputDialog("Type the new name"));
+						JOptionPane.showMessageDialog(null, "Account successfully updated!");
 						break;
 					case 3:
-						acc.setBalance(Float.parseFloat(JOptionPane.showInputDialog("Digite o novo saldo: ")));
-						JOptionPane.showMessageDialog(null, "Cliente alterado com Sucesso!");
+						acc.setBalance(Float.parseFloat(JOptionPane.showInputDialog("Type the new balance")));
+						JOptionPane.showMessageDialog(null, "Account successfully updated!");
 						break;
 					default:
-						JOptionPane.showMessageDialog(null, "Escolha uma opção entre 1 e 3...");
+						JOptionPane.showMessageDialog(null, "Type a valid option...");
 						update();
 				}
 			}
@@ -71,14 +71,14 @@ public class AtmMachine {
  	
 	//Function to delete an account
  	private static void delete() {
-		String auxiliar = JOptionPane.showInputDialog("Insira o número da conta que deseja excluir:");
+		String auxiliar = JOptionPane.showInputDialog("Type the account number that you want to delete");
 		int accountNumber = Integer.parseInt(auxiliar);
 		
 		for(Account account : accountsList){
 			if(account.getAccountNumber() == accountNumber){
 				accountsList.remove(account);
 
-				JOptionPane.showMessageDialog(null, "Conta removida com sucesso!");
+				JOptionPane.showMessageDialog(null, "Account successfully removed!");
 
 				//Break used to exit for loop and avoid an error
 				break;
@@ -129,26 +129,26 @@ public class AtmMachine {
  	}
 
 	//Function to display the 3 previous functions
-	 private static void descritivo() {
+	 private static void statistics() {
 
 		float max = max();
 		float min = min();
 		float average = average();
 
 		JOptionPane.showMessageDialog(null,
-				"Maior Saldo:  R$ " + max + "\nMenor Saldo:  R$ " + min + "\nMedia dos Saldos:  R$ " + average);
+				"Highest balance: $ " + max + "\nLowest balance: $ " + min + "\nBalance average: $ " + average);
 
 		ATM();
 	}
 
 	//Function to take a bank statement
- 	private static void extrato() {
-		String aux = JOptionPane.showInputDialog("\nDe qual conta deseja tirar o extrato?");
-		int accountNumber = Integer.parseInt(aux);
+ 	private static void statement() {
+		String accountNumberString = JOptionPane.showInputDialog("\nFrom which account do you want a statement?");
+		int accountNumber = Integer.parseInt(accountNumberString);
 
 		for (Account acc : accountsList) {
 			if (acc.getAccountNumber() == accountNumber) {
-				JOptionPane.showMessageDialog(null, "\nSaldo disponível: R$ " + acc.getBalance());
+				JOptionPane.showMessageDialog(null, "\nAvailable balance: $ " + acc.getBalance());
 			}
 		}
 
@@ -156,19 +156,19 @@ public class AtmMachine {
  	}
 
 	//Function to make a deposit
- 	private static void depositar() {
-		String aux01 = JOptionPane.showInputDialog("\nEm qual conta deseja realizar um depósito?");
-		int accountNumber = Integer.parseInt(aux01);
+ 	private static void deposit() {
+		String accountNumberString = JOptionPane.showInputDialog("\nIn which account do you want to deposit?");
+		int accountNumber = Integer.parseInt(accountNumberString);
 
 		for (Account acc : accountsList) {
 			if (acc.getAccountNumber() == accountNumber) {
-				String aux02 = JOptionPane.showInputDialog("\nQual o valor do depósito?");
+				String aux02 = JOptionPane.showInputDialog("\nType the deposit value");
 				Float depositValue = Float.parseFloat(aux02);		
 
 				float novoSaldo = acc.getBalance() + depositValue;
 				acc.setBalance(novoSaldo);
 
-				JOptionPane.showMessageDialog(null, "Depósito realizado com sucesso!");
+				JOptionPane.showMessageDialog(null, "Deposit successfully made!");
 			}
 		}
 
@@ -176,21 +176,21 @@ public class AtmMachine {
  	}
 
 	//Function to withdraw money from one account
- 	private static void sacar() {
- 		String aux01 = JOptionPane.showInputDialog("Em qual conta deseja realizar um saque?");
-		int accountNumber = Integer.parseInt(aux01);
+ 	private static void withdraw() {
+ 		String accountNumberString = JOptionPane.showInputDialog("From which account do you want to withdraw?");
+		int accountNumber = Integer.parseInt(accountNumberString);
 
 		for (Account acc : accountsList) {
 			if (acc.getAccountNumber() == accountNumber) {
-				String aux02 = JOptionPane.showInputDialog("Qual o valor do saque?");
-				Float withdrawValue = Float.parseFloat(aux02);
+				String withdrawValueString = JOptionPane.showInputDialog("Type the withdraw value");
+				Float withdrawValue = Float.parseFloat(withdrawValueString);
 
 				if (withdrawValue > acc.getBalance()) {
-					JOptionPane.showMessageDialog(null,	"Valor do saque maior do que o saldo.\nSaque não concluído.");
+					JOptionPane.showMessageDialog(null,	"Error!\nWithdraw value greater than balance.");
 				} else {
 					float newBalance = acc.getBalance() - withdrawValue;
 					acc.setBalance(newBalance);
-					JOptionPane.showMessageDialog(null, "Saque realizado com Sucesso!");
+					JOptionPane.showMessageDialog(null, "Withdraw successfully made!");
 				}
 			}
 		}
@@ -199,27 +199,27 @@ public class AtmMachine {
  	}
 
 	//Function to transfer money from one account to another
- 	private static void tranferir() {
-		String aux01 = JOptionPane.showInputDialog("De qual conta deseja realizar uma transferência?");
-		int originAccountNumber = Integer.parseInt(aux01);
+ 	private static void transfer() {
+		String originAccountNumberString = JOptionPane.showInputDialog("From which account do you want to transfer?");
+		int originAccountNumber = Integer.parseInt(originAccountNumberString);
 
-		String aux02 = JOptionPane.showInputDialog("Qual o valor da transferência?");
-		Float tedValue = Float.parseFloat(aux02);		   
+		String transferValueString = JOptionPane.showInputDialog("Type the transfer value");
+		Float transferValue = Float.parseFloat(transferValueString);		   
 
-		String aux03 = JOptionPane.showInputDialog("Para qual conta deseja enviar sua transferência?");
-		int destinationAccountNumber = Integer.parseInt(aux03);
+		String destinationAccountNumberString = JOptionPane.showInputDialog("To which account do you want to transfer?");
+		int destinationAccountNumber = Integer.parseInt(destinationAccountNumberString);
 
 		for (Account acc : accountsList) {
 				if (acc.getAccountNumber() == originAccountNumber) {
 
-					if (tedValue > acc.getBalance()) {
+					if (transferValue > acc.getBalance()) {
 							JOptionPane.showMessageDialog(null,
-							"Valor da tranferência maior do que o saldo.\nTranferência não concluída.");
+							"Error!\nTransfer value greater than balance.");
 						ATM();
 					} else {
-						float novoSaldoOrigem = acc.getBalance() - tedValue;
-						acc.setBalance(novoSaldoOrigem);
-						JOptionPane.showMessageDialog(null, "Transferência realizada com Sucesso!");
+						float senderNewBalance = acc.getBalance() - transferValue;
+						acc.setBalance(senderNewBalance);
+						JOptionPane.showMessageDialog(null, "Money successfully transferred!");
 					}
 
 				}
@@ -227,8 +227,8 @@ public class AtmMachine {
 
 		for (Account acc : accountsList) {
 			if (acc.getAccountNumber() == destinationAccountNumber) {
-				float novoSaldoDestino = acc.getBalance() + tedValue;
-				acc.setBalance(novoSaldoDestino);
+				float destinationAccountNewBalance = acc.getBalance() + transferValue;
+				acc.setBalance(destinationAccountNewBalance);
 			}
 		}
 
@@ -238,12 +238,12 @@ public class AtmMachine {
 
 	//Function to display the others functions and get the user's input and manage it
 	public static void ATM() {
-		String aux = JOptionPane.showInputDialog(
-				"Olá, Seja Bem-Vindo!\n\nO que deseja fazer?\n\n1)Cadastrar Conta \n2)Listar Contas \n3)Atualizar Conta \n4)Deletar Conta \n5)Descritivo \n6)Extrato \n7)Depositar \n8)Sacar \n9)Tranferir \n0)Sair");
+		String optionString = JOptionPane.showInputDialog(
+				"Welcome!\n\nWhat do you want to do?\n 1) Create account \n 2) List accounts \n 3) Update account \n 4) Delete account \n 5) Statistics \n 6) Statement \n 7) Deposit \n 8) Withdraw \n 9) Transfer \n 0) Exit");
 
-		int escolha = Integer.parseInt(aux);
+		int option = Integer.parseInt(optionString);
 
-		switch (escolha) {
+		switch (option) {
 			case 1:
 				create();
 				break;
@@ -257,25 +257,26 @@ public class AtmMachine {
 				delete();
 				break;
 			case 5:
-				descritivo();
+				statistics();
 				break;
 			case 6:
-				extrato();
+				statement();
 				break;
 			case 7:
-				depositar();
+				deposit();
 				break;
 			case 8:
-				sacar();
+				withdraw();
 				break;
 			case 9:
-				tranferir();
+				transfer();
 				break;
 			case 0:
 				System.exit(0);
 				break;
 			default:
-				JOptionPane.showMessageDialog(null, "Digite um número entre 0 e 9...");
+				JOptionPane.showMessageDialog(null, "Type a valid option...");
+				ATM();
 		}
 	}
 	
@@ -285,7 +286,7 @@ public class AtmMachine {
 		try{
 			ATM();
 		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null, "Você provavelmente digitou uma letra onde um número era esperado. Tente novamente...");
+			JOptionPane.showMessageDialog(null, "You probably typed a letter where a number is expected.\n Try again...");
 			main(args);
 		}
 	}
