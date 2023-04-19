@@ -11,12 +11,11 @@ public class AtmMachine {
 		
 		String password = JOptionPane.showInputDialog("Type the account password");
 
-		int countAccounts = 0;
+		boolean accountFound = false;
 
 		for (Account acc : accountsList) {
-			countAccounts++;
-
 			if (acc.getAccountNumber() == accountNumber && acc.getPassword().equals(password)) {
+				accountFound = true;
 				
 				accountLogged = acc;
 				break;
@@ -24,7 +23,7 @@ public class AtmMachine {
 			}
 		}
 
-		if (countAccounts == accountsList.size()) {
+		if (accountFound == false) {
 			JOptionPane.showMessageDialog(null, "Wrong account number or password.\n Try again...");
 		}
 	}
@@ -309,6 +308,7 @@ public class AtmMachine {
 		}
 	}
 
+	//Function to display the initial funcitons
 	static void initialMenu(){
 		String dialog = "Welcome!\n\n What do you to do? \n 1) Login \n 2) Create account \n 3) List accounts \n 4) Statistics \n 0) Exit system";
 		String optionString = JOptionPane.showInputDialog(null, dialog);
@@ -341,6 +341,7 @@ public class AtmMachine {
 
 	}
 
+	//Function that is called when the user wants to exit account ou delete his account
 	static boolean confirmation() {
 		boolean bool = false;
 		String confirmationString = JOptionPane.showInputDialog(null, "Are you sure?\n\n 0) No \n 1) Yes");
@@ -364,7 +365,6 @@ public class AtmMachine {
 
 	//Main function that calls the userMenu function to display and call the options
  	public static void main(String[] args) {
-		System.out.println(accountLogged);
 		try{
 
 			if (accountLogged != null) {

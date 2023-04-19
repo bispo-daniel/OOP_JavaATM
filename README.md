@@ -26,3 +26,13 @@ Later on I have updated the array to an arraylist, simple loops to for-each and 
 This was my first project with java, so I have learned a lot with it and it surely ignited my interest for the language.
 
 Objects, arrays, arraylist, for, for-each, try...catch, data types and etc.
+
+## Screenshots
+
+### `Landing page`
+
+![all-text](https://github.com/bispo-daniel/OOP_JavaATM/blob/main/LandingPageScreenshot.png)
+
+### `User page`
+
+![all-text](https://github.com/bispo-daniel/OOP_JavaATM/blob/main/UserPageScreenshot.png)
