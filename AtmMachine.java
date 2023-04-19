@@ -2,23 +2,49 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class AtmMachine {
+	static Account accountLogged;
 	static ArrayList<Account> accountsList = new ArrayList<Account>();
+
+	private static void login() {
+		String accountNumberString = JOptionPane.showInputDialog("Type the account number");
+		int accountNumber = Integer.parseInt(accountNumberString);
+		
+		String password = JOptionPane.showInputDialog("Type the account password");
+
+		int countAccounts = 0;
+
+		for (Account acc : accountsList) {
+			countAccounts++;
+
+			if (acc.getAccountNumber() == accountNumber && acc.getPassword().equals(password)) {
+				
+				accountLogged = acc;
+				break;
+				
+			}
+		}
+
+		if (countAccounts == accountsList.size()) {
+			JOptionPane.showMessageDialog(null, "Wrong account number or password.\n Try again...");
+		}
+	}
 
 	//Function to create a new account
 	private static void create() {
 		String accountNumberString = JOptionPane.showInputDialog("Type the account number");
 		int accountNumber = Integer.parseInt(accountNumberString);
+		
+		String password = JOptionPane.showInputDialog("Type the account password");
 
  		String name = JOptionPane.showInputDialog("Type your name");
 
 		String accountBalanceString = JOptionPane.showInputDialog("Type the initial balance");
 		Float accountBalance = Float.parseFloat(accountBalanceString);
 
-		Account acc = new Account(accountNumber, name, accountBalance);
+		Account acc = new Account(accountNumber, password, name, accountBalance);
 		accountsList.add(acc);
 		
 		JOptionPane.showMessageDialog(null, "Account successfully created!");
- 		ATM();
  	}
 
 	static String listAllAccounts = "";
@@ -32,18 +58,15 @@ public class AtmMachine {
 		}
 		
 		JOptionPane.showMessageDialog(null, listAllAccounts);
- 		ATM();
+ 		
  	}
 
 	//Function to update an account 
- 	private static void update() {
-		String aux01 = JOptionPane.showInputDialog("Which account do you want to update?");
-		int accountNumber = Integer.parseInt(aux01);
-
+ 	private static void update(Account accountLogged) {
 		for (Account acc : accountsList) {
-			if (acc.getAccountNumber() == accountNumber) {
+			if (acc.getAccountNumber() == accountLogged.getAccountNumber()) {
 				String aux02 = JOptionPane
-						.showInputDialog("\nWhat do you want to update? \n1) Account number \n2) Name \n3) Balance");
+						.showInputDialog("\nWhat do you want to update? \n1) Account number \n2) Password \n3) Name \n4) Balance");
 				int op = Integer.parseInt(aux02);
 
 				switch (op) {
@@ -52,40 +75,43 @@ public class AtmMachine {
 						JOptionPane.showMessageDialog(null, "Account successfully updated!");
 						break;
 					case 2:
-						acc.setName(JOptionPane.showInputDialog("Type the new name"));
+						acc.setPassword(JOptionPane.showInputDialog("Type the new account password"));
 						JOptionPane.showMessageDialog(null, "Account successfully updated!");
 						break;
 					case 3:
+						acc.setName(JOptionPane.showInputDialog("Type the new name"));
+						JOptionPane.showMessageDialog(null, "Account successfully updated!");
+						break;
+					case 4:
 						acc.setBalance(Float.parseFloat(JOptionPane.showInputDialog("Type the new balance")));
 						JOptionPane.showMessageDialog(null, "Account successfully updated!");
 						break;
 					default:
 						JOptionPane.showMessageDialog(null, "Type a valid option...");
-						update();
+						update(accountLogged);
 				}
 			}
 		}
 
- 		ATM();
+		
  	}
 
 	//Function to delete an account
- 	private static void delete() {
-		String auxiliar = JOptionPane.showInputDialog("Type the account number that you want to delete");
-		int accountNumber = Integer.parseInt(auxiliar);
+ 	private static void delete(Account accountLogged) {
+		int accountNumber = accountLogged.getAccountNumber();
+		String accountPassword = JOptionPane.showInputDialog(null, "Type your account password to delete it");
 		
 		for(Account account : accountsList){
-			if(account.getAccountNumber() == accountNumber){
+			if(account.getAccountNumber() == accountNumber && account.getPassword().equals(accountPassword)){
+				accountLogged = null;
 				accountsList.remove(account);
 
 				JOptionPane.showMessageDialog(null, "Account successfully removed!");
-
+				
 				//Break used to exit for loop and avoid an error
 				break;
 			}
 		}
-		
-		ATM();
 	}
 
 	//Function to get the highest balance among all the accounts
@@ -138,13 +164,12 @@ public class AtmMachine {
 		JOptionPane.showMessageDialog(null,
 				"Highest balance: $ " + max + "\nLowest balance: $ " + min + "\nBalance average: $ " + average);
 
-		ATM();
+		
 	}
 
 	//Function to take a bank statement
- 	private static void statement() {
-		String accountNumberString = JOptionPane.showInputDialog("\nFrom which account do you want a statement?");
-		int accountNumber = Integer.parseInt(accountNumberString);
+ 	private static void statement(Account accountLogged) {
+		int accountNumber = accountLogged.getAccountNumber();
 
 		for (Account acc : accountsList) {
 			if (acc.getAccountNumber() == accountNumber) {
@@ -152,13 +177,12 @@ public class AtmMachine {
 			}
 		}
 
- 		ATM();
+		
  	}
 
 	//Function to make a deposit
- 	private static void deposit() {
-		String accountNumberString = JOptionPane.showInputDialog("\nIn which account do you want to deposit?");
-		int accountNumber = Integer.parseInt(accountNumberString);
+ 	private static void deposit(Account accountLogged) {
+		int accountNumber = accountLogged.getAccountNumber();
 
 		for (Account acc : accountsList) {
 			if (acc.getAccountNumber() == accountNumber) {
@@ -172,13 +196,12 @@ public class AtmMachine {
 			}
 		}
 
- 		ATM();
+		
  	}
 
 	//Function to withdraw money from one account
- 	private static void withdraw() {
- 		String accountNumberString = JOptionPane.showInputDialog("From which account do you want to withdraw?");
-		int accountNumber = Integer.parseInt(accountNumberString);
+ 	private static void withdraw(Account accountLogged) {
+ 		int accountNumber = accountLogged.getAccountNumber();
 
 		for (Account acc : accountsList) {
 			if (acc.getAccountNumber() == accountNumber) {
@@ -195,13 +218,12 @@ public class AtmMachine {
 			}
 		}
 
- 		ATM();
+		
  	}
 
 	//Function to transfer money from one account to another
- 	private static void transfer() {
-		String originAccountNumberString = JOptionPane.showInputDialog("From which account do you want to transfer?");
-		int originAccountNumber = Integer.parseInt(originAccountNumberString);
+ 	private static void transfer(Account accountLogged) {
+		int originAccountNumber = accountLogged.getAccountNumber();
 
 		String transferValueString = JOptionPane.showInputDialog("Type the transfer value");
 		Float transferValue = Float.parseFloat(transferValueString);		   
@@ -215,7 +237,7 @@ public class AtmMachine {
 					if (transferValue > acc.getBalance()) {
 							JOptionPane.showMessageDialog(null,
 							"Error!\nTransfer value greater than balance.");
-						ATM();
+						userMenu();
 					} else {
 						float senderNewBalance = acc.getBalance() - transferValue;
 						acc.setBalance(senderNewBalance);
@@ -232,58 +254,125 @@ public class AtmMachine {
 			}
 		}
 
- 		
- 		ATM();
+		
  	}
 
 	//Function to display the others functions and get the user's input and manage it
-	public static void ATM() {
+	public static void userMenu() {
+		String dialog = "Welcome %s! \nYour account number: %d \nYour balance: %.2f \n\nWhat do you want to do? \n 1) Statement \n 2) Deposit \n 3) Withdraw \n 4) Transfer \n 5) Update account \n 6) Delete account \n 0) Exit account";
 		String optionString = JOptionPane.showInputDialog(
-				"Welcome!\n\nWhat do you want to do?\n 1) Create account \n 2) List accounts \n 3) Update account \n 4) Delete account \n 5) Statistics \n 6) Statement \n 7) Deposit \n 8) Withdraw \n 9) Transfer \n 0) Exit");
+				String.format(dialog, accountLogged.getName(), accountLogged.getAccountNumber(), accountLogged.getBalance()));
 
 		int option = Integer.parseInt(optionString);
 
 		switch (option) {
+			case 0:
+				if (confirmation() == true) {
+					accountLogged = null;
+					main(null);
+				} else {
+					main(null);
+				}
+				break;
 			case 1:
-				create();
+				statement(accountLogged);
+				main(null);
 				break;
 			case 2:
-				read();
+				deposit(accountLogged);
+				main(null);
 				break;
 			case 3:
-				update();
+				withdraw(accountLogged);
+				main(null);
 				break;
 			case 4:
-				delete();
+				transfer(accountLogged);
+				main(null);
 				break;
 			case 5:
-				statistics();
+				update(accountLogged);
+				main(null);
 				break;
 			case 6:
-				statement();
-				break;
-			case 7:
-				deposit();
-				break;
-			case 8:
-				withdraw();
-				break;
-			case 9:
-				transfer();
-				break;
-			case 0:
-				System.exit(0);
+				if (confirmation() == true) {
+					delete(accountLogged);
+					accountLogged = null;
+					main(null);
+				} else {
+					main(null);
+				}
 				break;
 			default:
 				JOptionPane.showMessageDialog(null, "Type a valid option...");
-				ATM();
+				userMenu();
 		}
 	}
 
-	//Main function that calls the ATM function to display and call the options
+	static void initialMenu(){
+		String dialog = "Welcome!\n\n What do you to do? \n 1) Login \n 2) Create account \n 3) List accounts \n 4) Statistics \n 0) Exit system";
+		String optionString = JOptionPane.showInputDialog(null, dialog);
+		int option = Integer.parseInt(optionString);
+
+		switch (option) {
+			case 0:
+				System.exit(0);
+				break;
+			case 1:
+				login();
+				main(null);
+				break;
+			case 2:
+				create();
+				main(null);
+				break;
+			case 3:
+				read();
+				main(null);
+				break;
+			case 4:
+				statistics();
+				main(null);
+				break;
+			default:
+				JOptionPane.showMessageDialog(null, "Type a valid number...");
+				initialMenu();
+		}
+
+	}
+
+	static boolean confirmation() {
+		boolean bool = false;
+		String confirmationString = JOptionPane.showInputDialog(null, "Are you sure?\n\n 0) No \n 1) Yes");
+		int confirmation = Integer.parseInt(confirmationString);
+
+		switch (confirmation) {
+			case 0:
+				bool = false;
+				break;
+			case 1:
+				bool = true;
+				break;
+			default:
+				JOptionPane.showMessageDialog(null, "Type a valid option...");
+				confirmation();
+				break;
+		}
+
+		return bool;
+	}
+
+	//Main function that calls the userMenu function to display and call the options
  	public static void main(String[] args) {
+		System.out.println(accountLogged);
 		try{
-			ATM();
+
+			if (accountLogged != null) {
+				userMenu();
+			} else {
+				initialMenu();
+			}
+
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null, "You probably typed a letter where a number is expected.\n Try again...");
 			main(args);
