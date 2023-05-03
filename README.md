@@ -27,6 +27,8 @@ This was my first project with java, so I have learned a lot with it and it sure
 
 Objects, arrays, arraylist, for, for-each, try...catch, data types and etc.
 
+JUnit tests with VScode.
+
 ## Screenshots
 
 ### `Landing page`

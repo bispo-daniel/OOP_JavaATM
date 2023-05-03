@@ -1,11 +1,13 @@
+package projectPack;
 import javax.swing.*;
+
 import java.util.ArrayList;
 
 public class AtmMachine {
 	static Account accountLogged;
 	static ArrayList<Account> accountsList = new ArrayList<Account>();
 
-	private static void login() {
+	public static void login() {
 		String accountNumberString = JOptionPane.showInputDialog("Type the account number");
 		int accountNumber = Integer.parseInt(accountNumberString);
 		
@@ -29,7 +31,7 @@ public class AtmMachine {
 	}
 
 	//Function to create a new account
-	private static void create() {
+	public static void create() {
 		String accountNumberString = JOptionPane.showInputDialog("Type the account number");
 		int accountNumber = Integer.parseInt(accountNumberString);
 		
@@ -38,7 +40,7 @@ public class AtmMachine {
  		String name = JOptionPane.showInputDialog("Type your name");
 
 		String accountBalanceString = JOptionPane.showInputDialog("Type the initial balance");
-		Float accountBalance = Float.parseFloat(accountBalanceString);
+		Double accountBalance = Double.parseDouble(accountBalanceString);
 
 		Account acc = new Account(accountNumber, password, name, accountBalance);
 		accountsList.add(acc);
@@ -49,7 +51,7 @@ public class AtmMachine {
 	static String listAllAccounts = "";
 
 	//Function to display all accounts 
- 	private static void read() {
+ 	public static void read() {
 		listAllAccounts = "";
 
  		for (Account acc : accountsList) {
@@ -61,7 +63,7 @@ public class AtmMachine {
  	}
 
 	//Function to update an account 
- 	private static void update(Account accountLogged) {
+ 	public static void update(Account accountLogged) {
 		for (Account acc : accountsList) {
 			if (acc.getAccountNumber() == accountLogged.getAccountNumber()) {
 				String aux02 = JOptionPane
@@ -82,7 +84,7 @@ public class AtmMachine {
 						JOptionPane.showMessageDialog(null, "Account successfully updated!");
 						break;
 					case 4:
-						acc.setBalance(Float.parseFloat(JOptionPane.showInputDialog("Type the new balance")));
+						acc.setBalance(Double.parseDouble(JOptionPane.showInputDialog("Type the new balance")));
 						JOptionPane.showMessageDialog(null, "Account successfully updated!");
 						break;
 					default:
@@ -96,7 +98,7 @@ public class AtmMachine {
  	}
 
 	//Function to delete an account
- 	private static void delete(Account accountLogged) {
+ 	public static void delete(Account accountLogged) {
 		int accountNumber = accountLogged.getAccountNumber();
 		String accountPassword = JOptionPane.showInputDialog(null, "Type your account password to delete it");
 		
@@ -114,8 +116,8 @@ public class AtmMachine {
 	}
 
 	//Function to get the highest balance among all the accounts
- 	private static float max() {
- 		float max = accountsList.get(0).getBalance();
+ 	public static double max() {
+ 		double max = accountsList.get(0).getBalance();
 
  		for (Account acc : accountsList) {
 			if (acc.getBalance() > max) {
@@ -127,8 +129,8 @@ public class AtmMachine {
  	}
 
 	//function to get the lowest balance among all the accounts
- 	private static float min() {
- 		float min = accountsList.get(0).getBalance();
+ 	public static double min() {
+ 		double min = accountsList.get(0).getBalance();
 
  		for (Account acc : accountsList) {
 			if (acc.getBalance() < min) {
@@ -140,8 +142,8 @@ public class AtmMachine {
  	}
 
 	//Function to get the average balance of all accounts 
- 	private static float average() {
- 		float add = 0;
+ 	public static double average() {
+ 		double add = 0;
 		int divider = 0;
 
  		for (Account acc : accountsList) {
@@ -149,16 +151,16 @@ public class AtmMachine {
 			add += acc.getBalance();
  		}
 
- 		float average = add / divider;
+ 		double average = add / divider;
  		return average;
  	}
 
 	//Function to display the 3 previous functions
-	 private static void statistics() {
+	public static void statistics() {
 
-		float max = max();
-		float min = min();
-		float average = average();
+		double max = max();
+		double min = min();
+		double average = average();
 
 		JOptionPane.showMessageDialog(null,
 				"Highest balance: $ " + max + "\nLowest balance: $ " + min + "\nBalance average: $ " + average);
@@ -167,7 +169,7 @@ public class AtmMachine {
 	}
 
 	//Function to take a bank statement
- 	private static void statement(Account accountLogged) {
+ 	public static void statement(Account accountLogged) {
 		int accountNumber = accountLogged.getAccountNumber();
 
 		for (Account acc : accountsList) {
@@ -180,15 +182,15 @@ public class AtmMachine {
  	}
 
 	//Function to make a deposit
- 	private static void deposit(Account accountLogged) {
+ 	public static void deposit(Account accountLogged) {
 		int accountNumber = accountLogged.getAccountNumber();
 
 		for (Account acc : accountsList) {
 			if (acc.getAccountNumber() == accountNumber) {
 				String aux02 = JOptionPane.showInputDialog("\nType the deposit value");
-				Float depositValue = Float.parseFloat(aux02);		
+				double depositValue = Double.parseDouble(aux02);		
 
-				float novoSaldo = acc.getBalance() + depositValue;
+				double novoSaldo = acc.getBalance() + depositValue;
 				acc.setBalance(novoSaldo);
 
 				JOptionPane.showMessageDialog(null, "Deposit successfully made!");
@@ -199,18 +201,18 @@ public class AtmMachine {
  	}
 
 	//Function to withdraw money from one account
- 	private static void withdraw(Account accountLogged) {
+ 	public static void withdraw(Account accountLogged) {
  		int accountNumber = accountLogged.getAccountNumber();
 
 		for (Account acc : accountsList) {
 			if (acc.getAccountNumber() == accountNumber) {
 				String withdrawValueString = JOptionPane.showInputDialog("Type the withdraw value");
-				Float withdrawValue = Float.parseFloat(withdrawValueString);
+				double withdrawValue = Double.parseDouble(withdrawValueString);
 
 				if (withdrawValue > acc.getBalance()) {
 					JOptionPane.showMessageDialog(null,	"Error!\nWithdraw value greater than balance.");
 				} else {
-					float newBalance = acc.getBalance() - withdrawValue;
+					double newBalance = acc.getBalance() - withdrawValue;
 					acc.setBalance(newBalance);
 					JOptionPane.showMessageDialog(null, "Withdraw successfully made!");
 				}
@@ -221,11 +223,11 @@ public class AtmMachine {
  	}
 
 	//Function to transfer money from one account to another
- 	private static void transfer(Account accountLogged) {
+ 	public static void transfer(Account accountLogged) {
 		int originAccountNumber = accountLogged.getAccountNumber();
 
 		String transferValueString = JOptionPane.showInputDialog("Type the transfer value");
-		Float transferValue = Float.parseFloat(transferValueString);		   
+		double transferValue = Double.parseDouble(transferValueString);		   
 
 		String destinationAccountNumberString = JOptionPane.showInputDialog("To which account do you want to transfer?");
 		int destinationAccountNumber = Integer.parseInt(destinationAccountNumberString);
@@ -238,7 +240,7 @@ public class AtmMachine {
 							"Error!\nTransfer value greater than balance.");
 						userMenu();
 					} else {
-						float senderNewBalance = acc.getBalance() - transferValue;
+						double senderNewBalance = acc.getBalance() - transferValue;
 						acc.setBalance(senderNewBalance);
 						JOptionPane.showMessageDialog(null, "Money successfully transferred!");
 					}
@@ -248,7 +250,7 @@ public class AtmMachine {
 
 		for (Account acc : accountsList) {
 			if (acc.getAccountNumber() == destinationAccountNumber) {
-				float destinationAccountNewBalance = acc.getBalance() + transferValue;
+				double destinationAccountNewBalance = acc.getBalance() + transferValue;
 				acc.setBalance(destinationAccountNewBalance);
 			}
 		}
@@ -309,7 +311,7 @@ public class AtmMachine {
 	}
 
 	//Function to display the initial funcitons
-	static void initialMenu(){
+	public static void initialMenu(){
 		String dialog = "Welcome!\n\n What do you to do? \n 1) Login \n 2) Create account \n 3) List accounts \n 4) Statistics \n 0) Exit system";
 		String optionString = JOptionPane.showInputDialog(null, dialog);
 		int option = Integer.parseInt(optionString);
@@ -342,7 +344,7 @@ public class AtmMachine {
 	}
 
 	//Function that is called when the user wants to exit account ou delete his account
-	static boolean confirmation() {
+	public static boolean confirmation() {
 		boolean bool = false;
 		String confirmationString = JOptionPane.showInputDialog(null, "Are you sure?\n\n 0) No \n 1) Yes");
 		int confirmation = Integer.parseInt(confirmationString);

@@ -1,11 +1,12 @@
+package projectPack;
 public class Account {
 	private int AccountNumber;
 	private String Password;
 	private String Name;
-	private Float Balance;
+	private Double Balance;
 
 	//Constructor
-	public Account(int AccountNumber, String Password, String Name, Float Balance){
+	public Account(int AccountNumber, String Password, String Name, Double Balance){
 		this.AccountNumber = AccountNumber;
 		this.Password = Password;
 		this.Name = Name;
@@ -36,11 +37,11 @@ public class Account {
 		Name = name;
 	}
 
-	public Float getBalance() {
+	public Double getBalance() {
 		return Balance;
 	}
 
-	public void setBalance(Float balance) {
+	public void setBalance(Double balance) {
 		Balance = balance;
 	}
 
