@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class AtmMachine {
 	static Account accountLogged;
-	static ArrayList<Account> accountsList = new ArrayList<Account>();
+	static ArrayList<Account> accountsList = new ArrayList<>();
 
 	public static void login() {
 		String accountNumberString = JOptionPane.showInputDialog("Type the account number");
@@ -25,7 +25,7 @@ public class AtmMachine {
 			}
 		}
 
-		if (accountFound == false) {
+		if (!accountFound) {
 			JOptionPane.showMessageDialog(null, "Wrong account number or password.\n Try again...");
 		}
 	}
@@ -71,25 +71,26 @@ public class AtmMachine {
 				int op = Integer.parseInt(aux02);
 
 				switch (op) {
-					case 1:
+					case 1 -> {
 						acc.setAccountNumber(Integer.parseInt(JOptionPane.showInputDialog("Type the new account number")));
 						JOptionPane.showMessageDialog(null, "Account successfully updated!");
-						break;
-					case 2:
+					}
+					case 2 -> {
 						acc.setPassword(JOptionPane.showInputDialog("Type the new account password"));
 						JOptionPane.showMessageDialog(null, "Account successfully updated!");
-						break;
-					case 3:
+					}
+					case 3 -> {
 						acc.setName(JOptionPane.showInputDialog("Type the new name"));
 						JOptionPane.showMessageDialog(null, "Account successfully updated!");
-						break;
-					case 4:
+					}
+					case 4 -> {
 						acc.setBalance(Double.parseDouble(JOptionPane.showInputDialog("Type the new balance")));
 						JOptionPane.showMessageDialog(null, "Account successfully updated!");
-						break;
-					default:
+					}
+					default -> {
 						JOptionPane.showMessageDialog(null, "Type a valid option...");
 						update(accountLogged);
+					}
 				}
 			}
 		}
@@ -104,7 +105,6 @@ public class AtmMachine {
 		
 		for(Account account : accountsList){
 			if(account.getAccountNumber() == accountNumber && account.getPassword().equals(accountPassword)){
-				accountLogged = null;
 				accountsList.remove(account);
 
 				JOptionPane.showMessageDialog(null, "Account successfully removed!");
@@ -151,8 +151,7 @@ public class AtmMachine {
 			add += acc.getBalance();
  		}
 
- 		double average = add / divider;
- 		return average;
+		return add / divider;
  	}
 
 	//Function to display the 3 previous functions
@@ -190,8 +189,8 @@ public class AtmMachine {
 				String aux02 = JOptionPane.showInputDialog("\nType the deposit value");
 				double depositValue = Double.parseDouble(aux02);		
 
-				double novoSaldo = acc.getBalance() + depositValue;
-				acc.setBalance(novoSaldo);
+				double newBalance = acc.getBalance() + depositValue;
+				acc.setBalance(newBalance);
 
 				JOptionPane.showMessageDialog(null, "Deposit successfully made!");
 			}
@@ -267,78 +266,78 @@ public class AtmMachine {
 		int option = Integer.parseInt(optionString);
 
 		switch (option) {
-			case 0:
-				if (confirmation() == true) {
+			case 0 -> {
+				if (confirmation()) {
 					accountLogged = null;
 					main(null);
 				} else {
 					main(null);
 				}
-				break;
-			case 1:
+			}
+			case 1 -> {
 				statement(accountLogged);
 				main(null);
-				break;
-			case 2:
+			}
+			case 2 -> {
 				deposit(accountLogged);
 				main(null);
-				break;
-			case 3:
+			}
+			case 3 -> {
 				withdraw(accountLogged);
 				main(null);
-				break;
-			case 4:
+			}
+			case 4 -> {
 				transfer(accountLogged);
 				main(null);
-				break;
-			case 5:
+			}
+			case 5 -> {
 				update(accountLogged);
 				main(null);
-				break;
-			case 6:
-				if (confirmation() == true) {
+			}
+			case 6 -> {
+				if (confirmation()) {
 					delete(accountLogged);
 					accountLogged = null;
 					main(null);
 				} else {
 					main(null);
 				}
-				break;
-			default:
+			}
+			default -> {
 				JOptionPane.showMessageDialog(null, "Type a valid option...");
 				userMenu();
+			}
 		}
 	}
 
-	//Function to display the initial funcitons
+	//Function to display the initial functions
 	public static void initialMenu(){
 		String dialog = "Welcome!\n\n What do you to do? \n 1) Login \n 2) Create account \n 3) List accounts \n 4) Statistics \n 0) Exit system";
 		String optionString = JOptionPane.showInputDialog(null, dialog);
 		int option = Integer.parseInt(optionString);
 
 		switch (option) {
-			case 0:
-				System.exit(0);
-				break;
-			case 1:
+			case 0 -> System.exit(0);
+			case 1 -> {
 				login();
 				main(null);
-				break;
-			case 2:
+			}
+			case 2 -> {
 				create();
 				main(null);
-				break;
-			case 3:
+			}
+			case 3 -> {
 				read();
 				main(null);
-				break;
-			case 4:
+			}
+			case 4 -> {
 				statistics();
 				main(null);
-				break;
-			default:
+			}
+			default -> {
 				JOptionPane.showMessageDialog(null, "Type a valid number...");
 				initialMenu();
+			}
 		}
 
 	}
@@ -346,20 +345,11 @@ public class AtmMachine {
 	//Function that is called when the user wants to exit account ou delete his account
 	public static boolean confirmation() {
 		boolean bool = false;
-		String confirmationString = JOptionPane.showInputDialog(null, "Are you sure?\n\n 0) No \n 1) Yes");
+		String confirmationString = JOptionPane.showInputDialog(null, "Are you sure?\n\n 1) Yes");
 		int confirmation = Integer.parseInt(confirmationString);
 
-		switch (confirmation) {
-			case 0:
-				bool = false;
-				break;
-			case 1:
-				bool = true;
-				break;
-			default:
-				JOptionPane.showMessageDialog(null, "Type a valid option...");
-				confirmation();
-				break;
+		if (confirmation == 1) {
+			bool = true;
 		}
 
 		return bool;
