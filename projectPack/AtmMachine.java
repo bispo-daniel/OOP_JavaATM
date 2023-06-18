@@ -71,26 +71,21 @@ public class AtmMachine {
 				int op = Integer.parseInt(aux02);
 
 				switch (op) {
-					case 1 -> {
+					case 1:
 						acc.setAccountNumber(Integer.parseInt(JOptionPane.showInputDialog("Type the new account number")));
 						JOptionPane.showMessageDialog(null, "Account successfully updated!");
-					}
-					case 2 -> {
+					case 2:
 						acc.setPassword(JOptionPane.showInputDialog("Type the new account password"));
 						JOptionPane.showMessageDialog(null, "Account successfully updated!");
-					}
-					case 3 -> {
+					case 3:
 						acc.setName(JOptionPane.showInputDialog("Type the new name"));
 						JOptionPane.showMessageDialog(null, "Account successfully updated!");
-					}
-					case 4 -> {
+					case 4:
 						acc.setBalance(Double.parseDouble(JOptionPane.showInputDialog("Type the new balance")));
 						JOptionPane.showMessageDialog(null, "Account successfully updated!");
-					}
-					default -> {
+					default:
 						JOptionPane.showMessageDialog(null, "Type a valid option...");
 						update(accountLogged);
-					}
 				}
 			}
 		}
@@ -266,35 +261,29 @@ public class AtmMachine {
 		int option = Integer.parseInt(optionString);
 
 		switch (option) {
-			case 0 -> {
+			case 0: 
 				if (confirmation()) {
 					accountLogged = null;
 					main(null);
 				} else {
 					main(null);
 				}
-			}
-			case 1 -> {
+			case 1: 
 				statement(accountLogged);
 				main(null);
-			}
-			case 2 -> {
+			case 2: 
 				deposit(accountLogged);
 				main(null);
-			}
-			case 3 -> {
+			case 3: 
 				withdraw(accountLogged);
 				main(null);
-			}
-			case 4 -> {
+			case 4: 
 				transfer(accountLogged);
 				main(null);
-			}
-			case 5 -> {
+			case 5: 
 				update(accountLogged);
 				main(null);
-			}
-			case 6 -> {
+			case 6: 
 				if (confirmation()) {
 					delete(accountLogged);
 					accountLogged = null;
@@ -302,11 +291,9 @@ public class AtmMachine {
 				} else {
 					main(null);
 				}
-			}
-			default -> {
+			default: 
 				JOptionPane.showMessageDialog(null, "Type a valid option...");
 				userMenu();
-			}
 		}
 	}
 
@@ -317,27 +304,22 @@ public class AtmMachine {
 		int option = Integer.parseInt(optionString);
 
 		switch (option) {
-			case 0 -> System.exit(0);
-			case 1 -> {
+			case 0: System.exit(0);
+			case 1:
 				login();
 				main(null);
-			}
-			case 2 -> {
+			case 2:
 				create();
 				main(null);
-			}
-			case 3 -> {
+			case 3:
 				read();
 				main(null);
-			}
-			case 4 -> {
+			case 4:
 				statistics();
 				main(null);
-			}
-			default -> {
+			default:
 				JOptionPane.showMessageDialog(null, "Type a valid number...");
 				initialMenu();
-			}
 		}
 
 	}
